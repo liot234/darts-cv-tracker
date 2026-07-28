@@ -66,7 +66,7 @@ This solution relies on a two cam setup to capture x,y position on the board:
 * **Top Camera:** Positioned above the board, pointing downward to capture horizontal (X-axis) displacement.
 * **Side Camera:** Positioned to the left of the board, pointing parallel across the face to capture vertical (Y-axis) displacement.
 
-![Bedroom Camera Setup](setup_image_filename.jpg)
+![Bedroom Camera Setup](Bedroom-setup.jpg)
 *(Replace `setup_image_filename.jpg` with the actual file name of your setup image)*
 
 **Setting up the camera and lighting:**
@@ -78,7 +78,7 @@ This solution relies on a two cam setup to capture x,y position on the board:
 
 Cleanly extracting the dart tip is the most critical aspect of the pipeline. The project leverages OpenCV for high-speed image processing, relying on frame differencing (comparing a background reference frame to a frame containing a dart). 
 
-![Basic Image Difference](difference_image_filename.jpg)
+![Basic Image Difference](Naive-imagediff.png)
 *(Replace `difference_image_filename.jpg` with the image of your basic isolation result)*
 
 To reduce noise and isolate the sub-pixel coordinates of the dart tip, several optimizations were implemented:
@@ -87,7 +87,7 @@ To reduce noise and isolate the sub-pixel coordinates of the dart tip, several o
 * **Region of Interest (ROI) Cropping:** Rather than processing the entire frame, the algorithm crops the processing matrix to isolate only the bottom 1/5th of the dart (the tip). This drastically reduces the size of the image matrices, minimizing latency and eliminating peripheral room noise.
 * **Morphological Operations:** The pipeline utilizes custom dilation and erosion algorithms (closing). A mathematical kernel sweeps across the image array to expand the primary "blobs" (the dart) and erode away disconnected noise, ensuring the dart tip remains a solid, unbroken contour.
 
-![Morphological Operations Illustration](morphology_image_filename.jpg)
+![Morphological Operations Illustration](dilation-erosion.png)
 *(Replace `morphology_image_filename.jpg` with your illustration of dilation and erosion)*
 
 ## 3. Mathematical Scoring & Statistical Analysis
